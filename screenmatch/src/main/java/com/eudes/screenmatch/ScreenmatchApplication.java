@@ -24,16 +24,17 @@ public class ScreenmatchApplication implements CommandLineRunner {
         var consumoApi = new ConsumoApi();
         ConverteDados converte = new ConverteDados();
 
+        //DADOS SÉRIE
         var json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=f5fb160b");
-        System.out.println(json);
-
         DadosSerie serie = converte.converteDados(json, DadosSerie.class);
         System.out.println(serie);
 
+        //DADOS EPISODIO
         json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=f5fb160b");
         DadosEpisodio dadosEpisodio = converte.converteDados(json, DadosEpisodio.class);
         System.out.println(dadosEpisodio);
 
+        //DADOS TEMPORADA
         List<DadosTemporada> dadosTemporadasList = new ArrayList<>();
         for(int i = 1; i <= serie.totalTemporadas(); i++){
             json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season="+i+"&apikey=f5fb160b");
