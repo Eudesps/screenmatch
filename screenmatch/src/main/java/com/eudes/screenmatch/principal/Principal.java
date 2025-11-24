@@ -22,6 +22,8 @@ public class Principal {
     public void exibirMenu(){
         System.out.println("DIGITE O NOME DA SÉRIE PARA PESQUISA -> ");
         nomeSerie = scanner.next();
+
+        //DADOS SÉRIE
         var json = consumoApi.obterDados(ENDERECO+nomeSerie+API_KEY);
         DadosSerie serie = converte.converteDados(json, DadosSerie.class);
         System.out.println(serie);
