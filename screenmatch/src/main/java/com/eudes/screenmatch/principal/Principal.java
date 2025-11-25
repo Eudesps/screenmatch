@@ -37,6 +37,8 @@ public class Principal {
         }
         dadosTemporadasList.forEach(System.out::println);
 
+        //Foi dado um forEach na lista de temporadas, pegado as temporadas, foi dado um outro forEach para
+        //cada episódio para poder imprimir o nome de cada um.
         dadosTemporadasList.forEach(t -> t.episodiosList().forEach(e -> System.out.println(e.title())));
     }
 }
