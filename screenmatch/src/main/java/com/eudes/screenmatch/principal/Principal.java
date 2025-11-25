@@ -36,5 +36,7 @@ public class Principal {
             dadosTemporadasList.add(dadosTemporada);
         }
         dadosTemporadasList.forEach(System.out::println);
+
+        dadosTemporadasList.forEach(t -> t.episodiosList().forEach(e -> System.out.println(e.title())));
     }
 }
