@@ -1,13 +1,16 @@
 package com.eudes.screenmatch.principal;
 
+import com.eudes.screenmatch.models.DadosEpisodio;
 import com.eudes.screenmatch.models.DadosSerie;
 import com.eudes.screenmatch.models.DadosTemporada;
 import com.eudes.screenmatch.service.ConsumoApi;
 import com.eudes.screenmatch.service.ConverteDados;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
@@ -26,7 +29,6 @@ public class Principal {
         //DADOS SÉRIE
         var json = consumoApi.obterDados(ENDERECO+nomeSerie+API_KEY);
         DadosSerie serie = converte.converteDados(json, DadosSerie.class);
-        System.out.println(serie);
 
        //DADOS TEMPORADA
         List<DadosTemporada> dadosTemporadasList = new ArrayList<>();
@@ -35,10 +37,21 @@ public class Principal {
             DadosTemporada dadosTemporada = converte.converteDados(json, DadosTemporada.class);
             dadosTemporadasList.add(dadosTemporada);
         }
-        dadosTemporadasList.forEach(System.out::println);
+        //dadosTemporadasList.forEach(System.out::println);
 
         //Foi dado um forEach na lista de temporadas, pegado as temporadas, foi dado um outro forEach para
         //cada episódio para poder imprimir o nome de cada um.
         dadosTemporadasList.forEach(t -> t.episodiosList().forEach(e -> System.out.println(e.title())));
+
+        List<DadosEpisodio> dadosEpisodios = dadosTemporadasList.stream()
+                .flatMap(t -> t.episodiosList().stream())
+                .collect(Collectors.toList());
+
+        System.out.println("/n TOP 5 EPISÓDIOS");
+        dadosEpisodios.stream()
+            .filter(e -> !e.avaliacao().equals("N/A"))
+                .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
+                .limit(5)
+                .forEach(System.out::println);
     }
 }
