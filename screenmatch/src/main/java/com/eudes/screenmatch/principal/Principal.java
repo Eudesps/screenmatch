@@ -3,6 +3,7 @@ package com.eudes.screenmatch.principal;
 import com.eudes.screenmatch.models.DadosEpisodio;
 import com.eudes.screenmatch.models.DadosSerie;
 import com.eudes.screenmatch.models.DadosTemporada;
+import com.eudes.screenmatch.models.Episodios;
 import com.eudes.screenmatch.service.ConsumoApi;
 import com.eudes.screenmatch.service.ConverteDados;
 
@@ -53,5 +54,12 @@ public class Principal {
                 .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
                 .limit(5)
                 .forEach(System.out::println);
+
+        List<Episodios> episodios = dadosTemporadasList.stream()
+                .flatMap(e -> e.episodiosList().stream()
+                        .map(d -> new Episodios(e.numeroTemporada(), d)))
+                .toList();
+
+        episodios.forEach(System.out::println);
     }
 }
