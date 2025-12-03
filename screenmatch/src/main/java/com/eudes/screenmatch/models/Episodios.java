@@ -1,6 +1,7 @@
 package com.eudes.screenmatch.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Episodios {
     private Integer temporada;
@@ -20,7 +21,12 @@ public class Episodios {
             this.avaliacao = 0.0;
         }
 
-        this.dataLancamento = LocalDate.parse(dadosEpisodio.dataLancamento());
+        try{
+            this.dataLancamento = LocalDate.parse(dadosEpisodio.dataLancamento());
+        }catch (DateTimeParseException ex){
+            this.dataLancamento = null;
+        }
+
 
     }
 
