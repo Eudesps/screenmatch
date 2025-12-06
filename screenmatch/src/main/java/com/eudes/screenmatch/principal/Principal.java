@@ -55,6 +55,8 @@ public class Principal {
                 .limit(5)
                 .forEach(System.out::println);
 
+        //Aqui vai ser listado todos os episódios e criar uma instância da classe Episodios e passar para uma lista
+        //do tipo Episodios. Além de passar os episódios ele vai também o número da temporada que o episódio está atrelado.
         List<Episodios> episodios = dadosTemporadasList.stream()
                 .flatMap(e -> e.episodiosList().stream()
                         .map(d -> new Episodios(e.numeroTemporada(), d)))
