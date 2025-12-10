@@ -7,6 +7,7 @@ import com.eudes.screenmatch.models.Episodios;
 import com.eudes.screenmatch.service.ConsumoApi;
 import com.eudes.screenmatch.service.ConverteDados;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -62,6 +63,20 @@ public class Principal {
                         .map(d -> new Episodios(e.numeroTemporada(), d)))
                 .toList();
 
-        episodios.forEach(System.out::println);
+
+        System.out.println("A partir de que ano você gostaria de ver os episodios? ");
+        var ano = scanner.nextInt();
+        scanner.nextLine();
+
+        LocalDate dataBusca = LocalDate.of(ano, 1,1);
+        episodios.stream()
+                        .filter(e -> e.getDataLancamento()!= null && e.getDataLancamento().isAfter(dataBusca))
+                                .forEach(e -> System.out.println(
+                                        "Temporda: " + e.getTemporada() +
+                                                "Nome Episodio: " + e.getTitulo() +
+                                        "Data de Lançamento: " + e.getDataLancamento()
+                                ));
+
+        //episodios.forEach(System.out::println);
     }
 }
