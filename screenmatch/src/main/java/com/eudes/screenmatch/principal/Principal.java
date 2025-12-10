@@ -8,6 +8,7 @@ import com.eudes.screenmatch.service.ConsumoApi;
 import com.eudes.screenmatch.service.ConverteDados;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -68,13 +69,15 @@ public class Principal {
         var ano = scanner.nextInt();
         scanner.nextLine();
 
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         LocalDate dataBusca = LocalDate.of(ano, 1,1);
         episodios.stream()
                         .filter(e -> e.getDataLancamento()!= null && e.getDataLancamento().isAfter(dataBusca))
                                 .forEach(e -> System.out.println(
                                         "Temporda: " + e.getTemporada() +
                                                 "Nome Episodio: " + e.getTitulo() +
-                                        "Data de Lançamento: " + e.getDataLancamento()
+                                        "Data de Lançamento: " + e.getDataLancamento().format(f)
                                 ));
 
         //episodios.forEach(System.out::println);
