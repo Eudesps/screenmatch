@@ -52,7 +52,10 @@ public class Principal {
 
         System.out.println("/n TOP 5 EPISÓDIOS");
         dadosEpisodios.stream()
-            .filter(e -> !e.avaliacao().equals("N/A"))
+                .filter(e -> !e.avaliacao().equals("N/A"))
+                // o peek pode te ajudar e debugar o código, entendo o que está acontecendo passo a passo,
+                // onde for colocado o peek. Então ele pega o que está logo a cima para mostrar o que está acontecendo.
+                .peek(e -> System.out.println("Filtro por N/A (Avaliações) " + e) )
                 .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
                 .limit(5)
                 .forEach(System.out::println);
