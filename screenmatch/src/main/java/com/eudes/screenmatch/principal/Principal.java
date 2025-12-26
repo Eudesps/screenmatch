@@ -9,10 +9,7 @@ import com.eudes.screenmatch.service.ConverteDados;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -67,6 +64,17 @@ public class Principal {
                         .map(d -> new Episodios(e.numeroTemporada(), d)))
                 .toList();
 
+
+        System.out.println("Digite o título do episódio para busca: ");
+        var tituloParaBusca = scanner.next();
+
+        Optional<Episodios> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(tituloParaBusca.toUpperCase()))
+                .findFirst();
+
+        if(episodioBuscado.isPresent()){
+            System.out.println("Episódio encontrado!! Temporada: " + episodioBuscado.get().getTemporada());
+        }else System.out.println("Não encontrado!");
 
         System.out.println("A partir de que ano você gostaria de ver os episodios? ");
         var ano = scanner.nextInt();
