@@ -52,7 +52,7 @@ public class Principal {
                 .filter(e -> !e.avaliacao().equals("N/A"))
                 // o peek pode te ajudar e debugar o código, entendo o que está acontecendo passo a passo,
                 // onde for colocado o peek. Então ele pega o que está logo a cima para mostrar o que está acontecendo.
-                .peek(e -> System.out.println("Filtro por N/A (Avaliações) " + e) )
+                //.peek(e -> System.out.println("Filtro por N/A (Avaliações) " + e) )
                 .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
                 .limit(5)
                 .forEach(System.out::println);
@@ -65,14 +65,14 @@ public class Principal {
                 .toList();
 
 
-        System.out.println("Digite o título do episódio para busca: ");
+/*        System.out.println("Digite o título do episódio para busca: ");
         var tituloParaBusca = scanner.next();
 
         Optional<Episodios> episodioBuscado = episodios.stream()
                 .filter(e -> e.getTitulo().toUpperCase().contains(tituloParaBusca.toUpperCase()))
-                .findFirst();
+                .findFirst();*/
 
-        if(episodioBuscado.isPresent()){
+/*        if(episodioBuscado.isPresent()){
             System.out.println("Episódio encontrado!! Temporada: " + episodioBuscado.get().getTemporada());
         }else System.out.println("Não encontrado!");
 
@@ -89,8 +89,16 @@ public class Principal {
                                         "Temporda: " + e.getTemporada() +
                                                 "Nome Episodio: " + e.getTitulo() +
                                         "Data de Lançamento: " + e.getDataLancamento().format(f)
-                                ));
+                                ));*/
 
         //episodios.forEach(System.out::println);
+
+
+        Map<Integer, Double> avaliacoesPorEpisodio = episodios.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .collect(Collectors.groupingBy(Episodios::getTemporada, Collectors.averagingDouble(Episodios::getAvaliacao)));
+
+
+        System.out.println(avaliacoesPorEpisodio);
     }
 }
