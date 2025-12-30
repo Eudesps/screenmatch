@@ -97,8 +97,13 @@ public class Principal {
         Map<Integer, Double> avaliacoesPorEpisodio = episodios.stream()
                 .filter(e -> e.getAvaliacao() > 0.0)
                 .collect(Collectors.groupingBy(Episodios::getTemporada, Collectors.averagingDouble(Episodios::getAvaliacao)));
-
-
         System.out.println(avaliacoesPorEpisodio);
+
+        DoubleSummaryStatistics est = episodios.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .collect(Collectors.summarizingDouble(Episodios::getAvaliacao));
+
+        System.out.println("Total episódios: " + est.getCount() + "\n" + "Média: " + est.getAverage() +
+                "\n" + "Melhor avaliação: " + est.getMax() + "\n" + "Pior avaliação: " + est.getMin());
     }
 }
