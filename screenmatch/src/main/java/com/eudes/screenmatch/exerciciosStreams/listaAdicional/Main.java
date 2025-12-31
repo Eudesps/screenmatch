@@ -2,9 +2,7 @@ package com.eudes.screenmatch.exerciciosStreams.listaAdicional;
 
 import com.eudes.screenmatch.exerciciosStreams.listaAdicional.models.Produto;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -31,11 +29,14 @@ public class Main {
         Map<String, Long> qtdProdutosPorCategoria = produtos.stream()
                 .collect(Collectors.groupingBy(Produto::getCategoria, Collectors.counting()));
 
-        System.out.println(qtdProdutosPorCategoria);
+        //System.out.println(qtdProdutosPorCategoria);
 
+        //------------------------------------------------------------------------------------
+        //8 - Dada a lista de produtos acima, encontre o produto mais caro de cada
+        // categoria e armazene o resultado em um Map<String, Optional<Produto>>.
+        Map<String, Optional<Produto>> maiorPrecoPorCategoria = produtos.stream()
+                .collect(Collectors.groupingBy(Produto::getCategoria, Collectors.maxBy(Comparator.comparingDouble(Produto::getPreco))));
 
-
-
-
+        System.out.println(maiorPrecoPorCategoria);
     }
 }
