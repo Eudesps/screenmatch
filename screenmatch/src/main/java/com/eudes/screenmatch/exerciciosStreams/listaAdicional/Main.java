@@ -37,6 +37,14 @@ public class Main {
         Map<String, Optional<Produto>> maiorPrecoPorCategoria = produtos.stream()
                 .collect(Collectors.groupingBy(Produto::getCategoria, Collectors.maxBy(Comparator.comparingDouble(Produto::getPreco))));
 
-        System.out.println(maiorPrecoPorCategoria);
+        //System.out.println(maiorPrecoPorCategoria);
+
+        //------------------------------------------------------------------------------------
+        //9 - Dada a lista de produtos acima, calcule o total dos preços dos produtos
+        // em cada categoria e armazene o resultado em um Map<String, Double>.
+        Map<String, Double> somaTotalPorCategoria = produtos.stream()
+                .collect(Collectors.groupingBy(Produto::getCategoria, Collectors.summingDouble(Produto::getPreco)));
+
+        System.out.println(somaTotalPorCategoria);
     }
 }
