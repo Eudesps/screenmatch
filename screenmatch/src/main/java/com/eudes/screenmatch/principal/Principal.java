@@ -7,8 +7,6 @@ import com.eudes.screenmatch.models.Episodios;
 import com.eudes.screenmatch.service.ConsumoApi;
 import com.eudes.screenmatch.service.ConverteDados;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 

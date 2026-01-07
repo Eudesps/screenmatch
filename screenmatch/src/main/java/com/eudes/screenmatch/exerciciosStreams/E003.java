@@ -2,7 +2,6 @@ package com.eudes.screenmatch.exerciciosStreams;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 //3 - Dada a lista de nomes abaixo, concatene-os separados por vírgula.
