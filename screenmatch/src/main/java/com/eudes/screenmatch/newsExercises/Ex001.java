@@ -1,4 +1,4 @@
-package br.com.alura.screenmatch.exercicios;
+package com.eudes.screenmatch.newsExercises;
 
 import java.util.ArrayList;
 import java.util.Arrays;
